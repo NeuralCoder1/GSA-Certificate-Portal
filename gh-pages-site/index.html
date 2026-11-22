@@ -9,15 +9,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
-  <script src="./pdf-lib.min.js"></script>
-  <script src="./fontkit.umd.min.js"></script>
+  <!-- CDN Fallbacks ensuring PDFLib & Fontkit are 100% available in any browser -->
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4/dist/fontkit.umd.min.js"></script>
   <script src="./pdf.min.js"></script>
   <script>
     if (window.pdfjsLib) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.min.js';
     }
   </script>
-  <script src="./app.js?v=20261122_03"></script>
+  <script src="./app.js?v=20261122_04"></script>
 </head>
 <body>
 
