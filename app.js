@@ -117,7 +117,7 @@ async function refreshStats() {
     } catch(e) {}
 
     // 2. Fetch from GitHub cloud API
-    const res = await fetch(`https://api.github.com/repos/${GITHUB_STATS_REPO}/contents/stats.json?ref=gh-pages&t=${Date.now()}`, {
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_STATS_REPO}/contents/stats.json?ref=main&t=${Date.now()}`, {
       headers: {
         'Authorization': `Bearer ${GITHUB_AUTH_KEY}`,
         'Accept': 'application/vnd.github.v3+json'
@@ -149,13 +149,8 @@ function applyStatsToUI(counts) {
 // Atomically increment a milestone count in the cloud
 async function incrementCloudStat(statKey) {
   try {
-    // 1. Try local server
-    try {
-      fetch(`/api/stats`).catch(() => {});
-    } catch(e) {}
-
-    // 2. Fetch current file sha & content from GitHub
-    const getRes = await fetch(`https://api.github.com/repos/${GITHUB_STATS_REPO}/contents/stats.json?ref=gh-pages&t=${Date.now()}`, {
+    // Fetch current file sha & content from GitHub
+    const getRes = await fetch(`https://api.github.com/repos/${GITHUB_STATS_REPO}/contents/stats.json?ref=main&t=${Date.now()}`, {
       headers: {
         'Authorization': `Bearer ${GITHUB_AUTH_KEY}`,
         'Accept': 'application/vnd.github.v3+json'
@@ -183,7 +178,7 @@ async function incrementCloudStat(statKey) {
         message: `Update ${statKey} count to ${counts[statKey]}`,
         content: updatedB64,
         sha: fileData.sha,
-        branch: 'gh-pages'
+        branch: 'main'
       })
     });
 
