@@ -595,6 +595,7 @@ window.jumpToSection = jumpToSection;
 window.updateLivePreview = updateLivePreview;
 window.downloadCertificatePDF = downloadCertificatePDF;
 window.refreshStats = refreshStats;
+window.incrementCloudStat = incrementCloudStat;
 window.state = state;
 
 document.addEventListener('DOMContentLoaded', () => {
