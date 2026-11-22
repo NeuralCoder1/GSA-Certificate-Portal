@@ -9,16 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
-  <!-- CDN Fallbacks ensuring PDFLib & Fontkit are 100% available in any browser -->
-  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-  <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4/dist/fontkit.umd.min.js"></script>
-  <script src="./pdf.min.js"></script>
-  <script>
-    if (window.pdfjsLib) {
-      pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.min.js';
-    }
-  </script>
-  <script src="./app.js?v=20261122_04"></script>
 </head>
 <body>
 
@@ -586,5 +576,33 @@
     <p>© 2026 Google Student Ambassador Program. All rights reserved.</p>
     <p style="margin-top: 4px; font-size: 0.8rem;">Game On: Imagine the Impossible • Powered by Gemini & Nano Banana</p>
   </footer>
+
+  <script>
+    // Universal Robust Dynamic Loader for All Browsers
+    (async function initPortalEngines() {
+      async function loadScript(src) {
+        return new Promise((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = src;
+          s.onload = () => resolve();
+          s.onerror = (e) => reject(e);
+          document.head.appendChild(s);
+        });
+      }
+
+      try {
+        await loadScript('https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js').catch(() => loadScript('./pdf-lib.min.js'));
+        await loadScript('https://unpkg.com/@pdf-lib/fontkit@0.0.4/dist/fontkit.umd.min.js').catch(() => loadScript('./fontkit.umd.min.js'));
+        await loadScript('./pdf.min.js');
+        if (window.pdfjsLib) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.min.js';
+        }
+        await loadScript('./app.js?v=20261122_v5');
+      } catch(err) {
+        console.error('Loader error:', err);
+      }
+    })();
+  </script>
 </body>
 </html>
+
