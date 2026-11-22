@@ -435,9 +435,18 @@ async function buildCertificatePdfBytes(studentName) {
   const fontBytes = await fetch('./assets/GoogleSans-Bold.ttf').then(r => r.arrayBuffer());
   const sigBytes = await fetch('./assets/signature_cropped.png').then(r => r.arrayBuffer());
 
-  const { PDFDocument, rgb } = PDFLib;
+  const PDFLibModule = window.PDFLib || (typeof PDFLib !== 'undefined' ? PDFLib : null);
+  const fontkitModule = window.fontkit || (typeof fontkit !== 'undefined' ? fontkit : null);
+
+  if (!PDFLibModule) {
+    throw new Error('PDF-Lib engine not ready');
+  }
+
+  const { PDFDocument, rgb } = PDFLibModule;
   const pdfDoc = await PDFDocument.load(templateBytes);
-  pdfDoc.registerFontkit(fontkit);
+  if (fontkitModule) {
+    pdfDoc.registerFontkit(fontkitModule);
+  }
 
   const customFont = await pdfDoc.embedFont(fontBytes);
   const sigImage = await pdfDoc.embedPng(sigBytes);
@@ -446,7 +455,7 @@ async function buildCertificatePdfBytes(studentName) {
   const { width } = page.getSize();
 
   // 1. Participant Name: center horizontally at (width - nameWidth)/2, y = 308
-  const cleanName = studentName.trim() || state.studentName || 'Akshat Jain';
+  const cleanName = (studentName || '').trim() || (state.studentName || '').trim() || 'Participant';
   let nameSize = 34;
   let nameWidth = customFont.widthOfTextAtSize(cleanName, nameSize);
   const maxNameWidth = 520;
@@ -522,7 +531,7 @@ function updateLivePreview() {
 
 // DOWNLOAD FINAL CERTIFICATE PDF WITH STRICT ANTI-CHEAT CHECK
 async function downloadCertificatePDF() {
-  const name = document.getElementById('certInputName').value.trim() || state.studentName;
+  const name = document.getElementById('certInputName').value.trim() || state.studentName || 'Participant';
   const email = state.studentEmail;
 
   if (!name || name.length < 3) {
@@ -543,9 +552,11 @@ async function downloadCertificatePDF() {
   btn.innerHTML = '<span>Generating High-Quality Certificate...</span>';
 
   try {
-    let pdfBytes = state.generatedPdfBytes;
-    if (!pdfBytes) {
-      pdfBytes = await buildCertificatePdfBytes(name);
+    // ALWAYS freshly compile the customized PDF vector bytes with participant name, fixed date, and signature
+    const pdfBytes = await buildCertificatePdfBytes(name);
+
+    if (!pdfBytes || pdfBytes.length === 0) {
+      throw new Error('Certificate generation returned empty stream.');
     }
 
     // Mark certificate claimed on this device
@@ -561,21 +572,24 @@ async function downloadCertificatePDF() {
       incrementCloudStat('certificatesIssued');
     }
 
-    // Trigger instant browser download
+    // Trigger instant browser download with real PDF binary blob
     const blob = new Blob([pdfBytes], { type: 'application/pdf' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
+    a.style.display = 'none';
     a.href = url;
     a.download = `Certificate_${name.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`;
     document.body.appendChild(a);
     a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
+    setTimeout(() => {
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    }, 1000);
 
     showToast('Your official certificate has been downloaded successfully!', 'success');
   } catch (err) {
-    console.error(err);
-    showToast('Download failed. Please try again.', 'error');
+    console.error('Certificate download error:', err);
+    showToast('Download failed: ' + (err.message || 'Please try again.'), 'error');
   } finally {
     btn.disabled = false;
     btn.innerHTML = originalText;
@@ -589,6 +603,7 @@ window.toggleGpaInputs = toggleGpaInputs;
 window.jumpToSection = jumpToSection;
 window.updateLivePreview = updateLivePreview;
 window.downloadCertificatePDF = downloadCertificatePDF;
+window.buildCertificatePdfBytes = buildCertificatePdfBytes;
 window.refreshStats = refreshStats;
 window.incrementCloudStat = incrementCloudStat;
 window.state = state;
