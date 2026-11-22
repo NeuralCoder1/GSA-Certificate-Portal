@@ -1,0 +1,13 @@
+{
+  "counts": {
+    "preSurveys": 0,
+    "feedbacks": 0,
+    "gpaRegistered": 0,
+    "gpaNotInterested": 0,
+    "certificatesIssued": 0
+  },
+  "students": {},
+  "deviceTracker": {},
+  "submissions": [],
+  "gpaResponses": []
+}

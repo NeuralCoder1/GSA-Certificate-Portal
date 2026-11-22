@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Student Ambassador | Certificate Verification & Download Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <!-- Local offline robust PDF.js for crisp instant live preview -->
+  <script src="/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Google 4-Color Animated Running Top Bar -->
+  <div class="google-running-bar"></div>
+
+  <!-- Google 4-Color Floating Kinetic Dots & Sparkles -->
+  <div class="google-dots-container">
+    <div class="g-dot g-dot-blue"></div>
+    <div class="g-dot g-dot-red"></div>
+    <div class="g-dot g-dot-yellow"></div>
+    <div class="g-dot g-dot-green"></div>
+    <img src="/assets/gemini-sparkle.png" alt="" class="g-sparkle-float">
+    <img src="/assets/gemini-sparkle.png" alt="" class="g-sparkle-float-2">
+  </div>
+
+  <!-- Background decorative glows -->
+  <div class="bg-glow-top"></div>
+  <div class="bg-glow-bottom"></div>
+
+  <!-- Header -->
+  <header class="portal-header">
+    <div class="header-inner">
+      <div class="brand-wrapper">
+        <img src="/assets/google-gemini-logo.png" alt="Google" class="brand-logo-img">
+        <div class="brand-divider"></div>
+        <img src="/assets/gsa-badge.png" alt="GSA" style="height: 34px;">
+        <div class="brand-text">
+          <span class="brand-title">Google Student Ambassador</span>
+          <span class="brand-sub">Game On: Imagine the Impossible</span>
+        </div>
+      </div>
+      <div class="header-badges">
+        <div class="team-gemini-pill">
+          <img src="/assets/gemini-sparkle.png" alt="Gemini" class="sparkle-icon">
+          <span>#TeamGemini</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="portal-container">
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <div class="hero-sparkle-badge">
+        <img src="/assets/gemini-sparkle.png" alt="Sparkle" style="width: 16px; height: 16px;">
+        <span>Product Trial • Google Student Ambassador Program 2026</span>
+      </div>
+      <h1 class="hero-title">Claim Your Official Certificate</h1>
+      <p class="hero-description">
+        Complete the verified event survey milestones below. Each section unlocks strictly upon completing the previous step.
+      </p>
+
+      <!-- Google Animated Wave Dots -->
+      <div class="google-wave-bar">
+        <div class="wave-dot"></div>
+        <div class="wave-dot"></div>
+        <div class="wave-dot"></div>
+        <div class="wave-dot"></div>
+      </div>
+
+      <!-- Live Participant Milestone Counter Banner -->
+      <div style="margin-top: 1.75rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;">
+        <div style="background: #ffffff; border: 1.5px solid var(--google-border); border-radius: 12px; padding: 10px 18px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.25rem;">📋</span>
+          <div style="text-align: left;">
+            <div style="font-size: 0.72rem; color: var(--google-text-tertiary); font-weight: 700; text-transform: uppercase;">Step 1: Pre-Surveys</div>
+            <div id="statPreSurveys" style="font-size: 1.2rem; font-weight: 800; color: var(--google-blue);">0</div>
+          </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1.5px solid var(--google-border); border-radius: 12px; padding: 10px 18px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.25rem;">💬</span>
+          <div style="text-align: left;">
+            <div style="font-size: 0.72rem; color: var(--google-text-tertiary); font-weight: 700; text-transform: uppercase;">Step 2: Feedbacks</div>
+            <div id="statFeedbacks" style="font-size: 1.2rem; font-weight: 800; color: var(--google-blue);">0</div>
+          </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1.5px solid #a8dab5; border-radius: 12px; padding: 10px 18px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.25rem;">🎮</span>
+          <div style="text-align: left;">
+            <div style="font-size: 0.72rem; color: #137333; font-weight: 700; text-transform: uppercase;">Step 3: GPA Playing</div>
+            <div id="statGpaRegistered" style="font-size: 1.2rem; font-weight: 800; color: #137333;">0</div>
+          </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1.5px solid #f9ab00; border-radius: 12px; padding: 10px 18px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.25rem;">⏭️</span>
+          <div style="text-align: left;">
+            <div style="font-size: 0.72rem; color: #b06000; font-weight: 700; text-transform: uppercase;">Step 3: GPA Passed</div>
+            <div id="statGpaNotInterested" style="font-size: 1.2rem; font-weight: 800; color: #b06000;">0</div>
+          </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1.5px solid var(--google-border); border-radius: 12px; padding: 10px 18px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.25rem;">🎓</span>
+          <div style="text-align: left;">
+            <div style="font-size: 0.72rem; color: var(--google-text-tertiary); font-weight: 700; text-transform: uppercase;">Step 4: Certificates</div>
+            <div id="statCertificates" style="font-size: 1.2rem; font-weight: 800; color: var(--google-text-primary);">0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stepper Navigation -->
+    <nav class="stepper-nav" aria-label="Progress Stepper">
+      <div class="step-node active" id="stepNode1" onclick="jumpToSection(1)">
+        <div class="step-circle" id="circle1">1</div>
+        <div class="step-info">
+          <span class="step-tag">Step 1</span>
+          <span class="step-title">Pre-Survey Form</span>
+        </div>
+      </div>
+      <div class="step-line" id="line1"></div>
+
+      <div class="step-node locked" id="stepNode2" onclick="jumpToSection(2)">
+        <div class="step-circle" id="circle2">2</div>
+        <div class="step-info">
+          <span class="step-tag">Step 2</span>
+          <span class="step-title">Participant Feedback</span>
+        </div>
+      </div>
+      <div class="step-line" id="line2"></div>
+
+      <div class="step-node locked" id="stepNodeGpa" onclick="jumpToSection('Gpa')">
+        <div class="step-circle" id="circleGpa">3</div>
+        <div class="step-info">
+          <span class="step-tag">Step 3</span>
+          <span class="step-title">Google Play Arena</span>
+        </div>
+      </div>
+      <div class="step-line" id="lineGpa"></div>
+
+      <div class="step-node locked" id="stepNode3" onclick="jumpToSection(3)">
+        <div class="step-circle" id="circle3">4</div>
+        <div class="step-info">
+          <span class="step-tag">Step 4</span>
+          <span class="step-title">Certificate</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- SECTION 1: Pre-Survey Form (Step 1) -->
+    <section class="section-card" id="section1">
+      <div class="section-card-header">
+        <div class="section-header-left">
+          <div class="section-header-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="section-header-title">Step 1 — Pre-Survey Form</h2>
+            <p class="section-header-desc">Product Trial Pre-Survey Form (November)</p>
+          </div>
+        </div>
+        <span class="badge-status badge-active" id="badgeStep1">● In Progress</span>
+      </div>
+
+      <div class="section-body">
+        <!-- Direct Link Action Card -->
+        <div style="background: linear-gradient(135deg, #f8fafd, #ffffff); border: 1.5px solid var(--google-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+          <div style="max-width: 580px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <span style="background: #e8f0fe; color: var(--google-blue); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;">OFFICIAL FORM</span>
+              <span style="color: var(--google-text-tertiary); font-size: 0.8rem;">producttrialsurvey.geministudentambassador.com</span>
+            </div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 4px;">PRODUCT TRIAL | PRE SURVEY | NOVEMBER</h3>
+            <p style="font-size: 0.88rem; color: var(--google-text-secondary);">
+              Open the official Pre-Survey form to log your details. Once submitted, confirm below to unlock Step 2.
+            </p>
+          </div>
+          <div>
+            <a href="https://producttrialsurvey.geministudentambassador.com/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="text-decoration: none; font-size: 0.92rem; padding: 0.8rem 1.6rem;">
+              <span>Open Pre-Survey Form</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Verification Gate to Unlock Step 2 -->
+        <div style="background: #fafafb; border: 1.5px dashed #bdc1c6; border-radius: 16px; padding: 1.75rem 2rem;">
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+            <span>🔐 Confirm Submission & Unlock Step 2</span>
+          </h4>
+          <p style="font-size: 0.88rem; color: var(--google-text-secondary); margin-bottom: 1.25rem;">
+            Enter the details you submitted in the Pre-Survey form so we can verify your entry.
+          </p>
+
+          <form id="formStep1" onsubmit="handleStep1Submit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="s1FullName">
+                  Full Name <span class="req-star">*</span>
+                </label>
+                <input type="text" id="s1FullName" class="form-control" placeholder="e.g. Akshat Jain" required>
+                <p class="form-hint">Enter your full name as you want it on your certificate.</p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="s1Email">
+                  Your Gmail ID <span class="req-star">*</span>
+                </label>
+                <input type="email" id="s1Email" class="form-control" placeholder="e.g. akshat23@gmail.com" required>
+                <p class="form-hint">Must be the same registered @gmail.com used for both forms.</p>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="s1AmbassadorGid">
+                  Ambassador's GID <span class="req-star">*</span>
+                </label>
+                <input type="text" id="s1AmbassadorGid" class="form-control" value="13052" required>
+                <p class="form-hint">Verified Ambassador GID: 13052</p>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="s1AmbassadorEmail">
+                  Ambassador's Email ID <span class="req-star">*</span>
+                </label>
+                <input type="email" id="s1AmbassadorEmail" class="form-control" value="dasloknath2005@gmail.com" required>
+                <p class="form-hint">Verified Host Email: dasloknath2005@gmail.com</p>
+              </div>
+            </div>
+
+            <div style="margin-top: 1rem; display: flex; align-items: center; gap: 10px;">
+              <input type="checkbox" id="checkSurveySubmitted" class="custom-radio" style="width: 18px; height: 18px; cursor: pointer;" required>
+              <label for="checkSurveySubmitted" style="font-size: 0.9rem; font-weight: 600; color: var(--google-text-primary); cursor: pointer;">
+                I have opened and submitted the official Pre-Survey form at producttrialsurvey.geministudentambassador.com
+              </label>
+            </div>
+
+            <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+              <button type="button" class="btn-primary" id="btnSubmitStep1" onclick="handleStep1Submit(event)">
+                <span>Verify & Unlock Step 2</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/>
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Participant Feedback (Step 2) -->
+    <section class="section-card" id="section2">
+      <div class="section-card-header">
+        <div class="section-header-left">
+          <div class="section-header-icon" style="background: #fce8e6; color: var(--google-red);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="section-header-title">Step 2 — Participant Feedback</h2>
+            <p class="section-header-desc">Official Product Trial Participant Feedback (November)</p>
+          </div>
+        </div>
+        <span class="badge-status badge-locked" id="badgeStep2">🔒 Locked</span>
+      </div>
+
+      <div class="section-body" id="bodyStep2">
+        <!-- Locked state -->
+        <div class="locked-overlay" id="lockedState2">
+          <div class="lock-icon-circle">🔒</div>
+          <div class="lock-title">Step 2 Locked</div>
+          <p class="lock-desc">
+            Complete and successfully submit <strong>Step 1 (Pre-Survey Form)</strong> with valid details to unlock this stage.
+          </p>
+        </div>
+
+        <!-- Unlocked Section 2 -->
+        <div id="formStep2" style="display: none;">
+          <!-- Top Notice -->
+          <div style="background: #fef7e0; border: 1px solid #f9ab00; border-radius: 12px; padding: 1.15rem 1.4rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 12px;">
+            <span style="font-size: 1.4rem; line-height: 1;">⚠️</span>
+            <div style="font-size: 0.88rem; color: #7c4a00; line-height: 1.45;">
+              <strong>Important Requirement:</strong> Please use the same registered email ID for all submissions. If the email ID does not match, participation points will not be validated.
+            </div>
+          </div>
+
+          <!-- Direct Form Action Card -->
+          <div style="background: linear-gradient(135deg, #f8fafd, #ffffff); border: 1.5px solid var(--google-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+            <div style="max-width: 580px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span style="background: #e8f0fe; color: var(--google-blue); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;">OFFICIAL FORM</span>
+                <span style="color: var(--google-text-tertiary); font-size: 0.8rem;">producttrialfeedback.geministudentambassador.com</span>
+              </div>
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 4px;">PRODUCT TRIAL: PARTICIPANT FEEDBACK! (NOVEMBER)</h3>
+              <p style="font-size: 0.88rem; color: var(--google-text-secondary);">
+                Open the official Participant Feedback form below to share your experience with Gemini and Nano Banana. Once submitted, confirm below to unlock Step 3.
+              </p>
+            </div>
+            <div>
+              <a href="https://producttrialfeedback.geministudentambassador.com/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="text-decoration: none; font-size: 0.92rem; padding: 0.8rem 1.6rem;">
+                <span>Open Feedback Form</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Verification Gate to Unlock Step 3 -->
+          <div style="background: #fafafb; border: 1.5px dashed #bdc1c6; border-radius: 16px; padding: 1.75rem 2rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+              <span>🔐 Confirm & Unlock Step 3</span>
+            </h4>
+            <p style="font-size: 0.88rem; color: var(--google-text-secondary); margin-bottom: 1.25rem;">
+              Once you have submitted the feedback form above, verify your details below to proceed to Step 3.
+            </p>
+
+            <form id="formConfirmStep2" onsubmit="handleStep2Submit(event)">
+              <div class="form-row">
+                <div class="form-group" style="margin-bottom: 1rem;">
+                  <label class="form-label" for="s2RegisteredEmail">
+                    Registered Gmail ID <span class="req-star">*</span>
+                  </label>
+                  <input type="email" id="s2RegisteredEmail" class="form-control" placeholder="same registered gmail id" required>
+                  <p class="form-hint">Must match the registered email used in Step 1.</p>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                  <label class="form-label" for="s2AmbassadorGid">
+                    Ambassador's GID <span class="req-star">*</span>
+                  </label>
+                  <input type="text" id="s2AmbassadorGid" class="form-control" value="13052" required>
+                  <p class="form-hint">Verified Ambassador GID: 13052</p>
+                </div>
+              </div>
+
+              <div style="margin-top: 1rem; display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" id="checkSubmitted" class="custom-radio" style="width: 18px; height: 18px; cursor: pointer;" required>
+                <label for="checkSubmitted" style="font-size: 0.9rem; font-weight: 600; color: var(--google-text-primary); cursor: pointer;">
+                  I have completed and submitted the official feedback form at producttrialfeedback.geministudentambassador.com
+                </label>
+              </div>
+
+              <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+                <button type="button" class="btn-primary" id="btnSubmitStep2" onclick="handleStep2Submit(event)">
+                  <span>Verify Submission & Unlock Step 3</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Google Play Arena Registration (Step 3 - Optional Registration Before Certificate) -->
+    <section class="section-card" id="sectionGpa">
+      <div class="section-card-header">
+        <div class="section-header-left">
+          <div class="section-header-icon" style="background: #e8f0fe; color: var(--google-blue);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="section-header-title">Step 3 — Google Play Arena (Optional Challenge)</h2>
+            <p class="section-header-desc">Choose whether you are participating in Google Play Arena (GPA)</p>
+          </div>
+        </div>
+        <span class="badge-status badge-locked" id="badgeStepGpa">🔒 Locked</span>
+      </div>
+
+      <div class="section-body" id="bodyStepGpa">
+        <!-- Locked state -->
+        <div class="locked-overlay" id="lockedStateGpa">
+          <div class="lock-icon-circle">🔒</div>
+          <div class="lock-title">Step 3 Locked</div>
+          <p class="lock-desc">
+            Complete <strong>Step 1 (Pre-Survey)</strong> and <strong>Step 2 (Participant Feedback)</strong> to unlock this section.
+          </p>
+        </div>
+
+        <!-- Unlocked GPA Section -->
+        <div id="unlockedStepGpa" style="display: none;">
+          <!-- GPA Info Card -->
+          <div style="background: linear-gradient(135deg, #f8fafd, #ffffff); border: 1.5px solid var(--google-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+            <div style="max-width: 580px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span style="background: #e8f0fe; color: var(--google-blue); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;">OPTIONAL EVENT</span>
+                <span style="color: var(--google-text-tertiary); font-size: 0.8rem;">goo.gle/GooglePlayArena-StudentAmbassadors</span>
+              </div>
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 4px;">GOOGLE PLAY ARENA (GPA) REGISTRATION</h3>
+              <p style="font-size: 0.88rem; color: var(--google-text-secondary);">
+                Google Play Arena is an optional gaming competition for ambassadors and students. Registration is not mandatory for receiving your certificate.
+              </p>
+            </div>
+            <div>
+              <a href="https://goo.gle/GooglePlayArena-StudentAmbassadors" target="_blank" rel="noopener noreferrer" class="btn-primary" style="text-decoration: none; font-size: 0.92rem; padding: 0.8rem 1.6rem;">
+                <span>View / Register for GPA</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Selection Gate -->
+          <div style="background: #fafafb; border: 1.5px dashed #bdc1c6; border-radius: 16px; padding: 1.75rem 2rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 0.5rem;">
+              Select Your Participation Status <span class="req-star">*</span>
+            </h4>
+            <p style="font-size: 0.88rem; color: var(--google-text-secondary); margin-bottom: 1.25rem;">
+              Both choices will unlock your certificate. We track registrations to form ambassador teams.
+            </p>
+
+            <form id="formGpaChoice" onsubmit="handleGpaSubmit(event)">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 1.25rem;">
+                <label style="background: #ffffff; border: 2px solid var(--google-border); border-radius: 12px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: var(--transition);" id="labelGpaYes">
+                  <input type="radio" name="gpaOption" value="registered" class="custom-radio" onchange="toggleGpaInputs('registered')" required>
+                  <div>
+                    <div style="font-weight: 700; color: #137333; font-size: 0.95rem;">🎉 I am Registered / Interested</div>
+                    <div style="font-size: 0.78rem; color: var(--google-text-tertiary);">Participating in Google Play Arena</div>
+                  </div>
+                </label>
+
+                <label style="background: #ffffff; border: 2px solid var(--google-border); border-radius: 12px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: var(--transition);" id="labelGpaNo">
+                  <input type="radio" name="gpaOption" value="not_interested" class="custom-radio" onchange="toggleGpaInputs('not_interested')" required>
+                  <div>
+                    <div style="font-weight: 700; color: #b06000; font-size: 0.95rem;">⏭️ I am Not Interested</div>
+                    <div style="font-size: 0.78rem; color: var(--google-text-tertiary);">Proceed straight to certificate download</div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Conditional Input: Team Name -->
+              <div id="boxGpaTeam" style="display: none; margin-bottom: 1.25rem;">
+                <label class="form-label" for="gpaTeamName">
+                  What is your Team Name on Google Play Arena? <span class="req-star">*</span>
+                </label>
+                <input type="text" id="gpaTeamName" class="form-control" placeholder="e.g. Pixel Titans / Solo Player">
+                <p class="form-hint">Enter your team name or registered nickname.</p>
+              </div>
+
+              <!-- Conditional Input: Reason Not Interested -->
+              <div id="boxGpaReason" style="display: none; margin-bottom: 1.25rem;">
+                <label class="form-label" for="gpaReason">
+                  Could you tell us briefly why you are not interested? <span class="req-star">*</span>
+                </label>
+                <input type="text" id="gpaReason" class="form-control" placeholder="e.g. Schedule conflict / Not into gaming / Exam week">
+                <p class="form-hint">Your feedback helps us curate better future challenges.</p>
+              </div>
+
+              <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+                <button type="button" class="btn-primary" id="btnSubmitGpa" onclick="handleGpaSubmit(event)">
+                  <span>Save Choice & Unlock Certificate</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: Download Your Certificate (Step 4) -->
+    <section class="section-card" id="section3">
+      <div class="section-card-header">
+        <div class="section-header-left">
+          <div class="section-header-icon" style="background: #e6f4ea; color: var(--google-green);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="section-header-title">Step 4 — Download Your Official Certificate</h2>
+            <p class="section-header-desc">Customized with your name, date, Google Sans font & authorized signature</p>
+          </div>
+        </div>
+        <span class="badge-status badge-locked" id="badgeStep3">🔒 Locked</span>
+      </div>
+
+      <div class="section-body" id="bodyStep3">
+        <!-- Rendered dynamically: Locked state or Generator Panel -->
+        <div class="locked-overlay" id="lockedState3">
+          <div class="lock-icon-circle">🔒</div>
+          <div class="lock-title">Certificate Locked</div>
+          <p class="lock-desc">
+            Complete all prior milestones: <strong>Step 1 (Pre-Survey)</strong>, <strong>Step 2 (Participant Feedback)</strong>, and <strong>Step 3 (Google Play Arena status)</strong> to generate and download your official certificate.
+          </p>
+        </div>
+
+        <div id="unlockedState3" style="display: none;">
+          <div class="completion-banner">
+            <div class="completion-icon">✓</div>
+            <div>
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: #137333;">Congratulations! All Event Milestones Verified</h3>
+              <p style="font-size: 0.9rem; color: #1e4620;">
+                Your attendance and survey submissions have been verified by the Ambassador. Confirm your name and event date below to get your high-resolution signed certificate.
+              </p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="certInputName">
+                Student Name on Certificate <span class="req-star">*</span>
+              </label>
+              <input type="text" id="certInputName" class="form-control" placeholder="Enter student full name" oninput="updateLivePreview()">
+              <p class="form-hint">Rendered cleanly in Google Sans Bold above the verification line.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="certInputDate">
+                Event Date <span class="req-star">*</span>
+              </label>
+              <input type="text" id="certInputDate" class="form-control" value="22.11.2026" readonly style="background-color: #f1f3f4; cursor: not-allowed; font-weight: 700;">
+              <p class="form-hint">Official Event Date: 22.11.2026 (Fixed)</p>
+            </div>
+          </div>
+
+          <!-- Live High-Resolution Certificate Preview -->
+          <div class="cert-preview-card">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.9rem; font-weight: 700; color: var(--google-text-primary);">
+                Live Certificate Preview (PDF Layout)
+              </span>
+              <span style="font-size: 0.78rem; background: #e8f0fe; color: var(--google-blue); padding: 4px 10px; border-radius: 20px; font-weight: 600;">
+                ✓ Verified Ambassador Signature Applied
+              </span>
+            </div>
+            
+            <div class="cert-canvas-container">
+              <canvas id="certCanvas"></canvas>
+            </div>
+            
+            <div style="margin-top: 1.5rem;">
+              <button type="button" class="btn-primary btn-success" id="btnDownloadCert" onclick="downloadCertificatePDF()" style="font-size: 1.05rem; padding: 1rem 2.5rem;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+                </svg>
+                <span>Download Official Certificate (PDF)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Notification Toasts -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="portal-footer">
+    <div class="footer-logos">
+      <img src="/assets/google-gemini-logo.png" alt="Google" class="footer-logo">
+      <img src="/assets/gsa-badge.png" alt="GSA" class="footer-logo">
+      <img src="/assets/team-gemini.png" alt="Team Gemini" class="footer-logo" style="height: 38px;">
+    </div>
+    <p>© 2026 Google Student Ambassador Program. All rights reserved.</p>
+    <p style="margin-top: 4px; font-size: 0.8rem;">Game On: Imagine the Impossible • Powered by Gemini & Nano Banana</p>
+  </footer>
+
+  <script src="/app.js"></script>
+  <script>
+    console.log('Direct test:', typeof window.handleStep1Submit);
+  </script>
+</body>
+</html>
