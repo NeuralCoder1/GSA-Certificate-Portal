@@ -578,11 +578,16 @@ let previewDebounceTimer = null;
 function updateLivePreview() {
   clearTimeout(previewDebounceTimer);
   previewDebounceTimer = setTimeout(async () => {
-    const name = document.getElementById('certInputName').value.trim() || state.studentName;
+    const name = document.getElementById('certInputName').value.trim() || state.studentName || 'Participant';
 
     try {
       const pdfBytes = await buildCertificatePdfBytes(name);
       state.generatedPdfBytes = pdfBytes;
+
+      // Ensure workerSrc is set
+      if (window.pdfjsLib) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.min.js';
+      }
 
       const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
       const pdf = await loadingTask.promise;
