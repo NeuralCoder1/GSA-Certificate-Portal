@@ -429,8 +429,44 @@ function unlockStep3() {
   updateLivePreview();
 }
 
+// ==========================================================================
+// In-Browser Dynamic Dependency Loader (Guarantees PDFLib & Fontkit are ready)
+// ==========================================================================
+async function ensurePdfEnginesReady() {
+  if (window.PDFLib && window.fontkit) return true;
+
+  try {
+    if (!window.PDFLib) {
+      const codePdfLib = await fetch('./pdf-lib.min.js').then(r => r.text());
+      const s1 = document.createElement('script');
+      s1.textContent = codePdfLib;
+      document.head.appendChild(s1);
+    }
+    if (!window.fontkit) {
+      const codeFontkit = await fetch('./fontkit.umd.min.js').then(r => r.text());
+      const s2 = document.createElement('script');
+      s2.textContent = codeFontkit;
+      document.head.appendChild(s2);
+    }
+    if (!window.pdfjsLib) {
+      const codePdfjs = await fetch('./pdf.min.js').then(r => r.text());
+      const s3 = document.createElement('script');
+      s3.textContent = codePdfjs;
+      document.head.appendChild(s3);
+      if (window.pdfjsLib) {
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.min.js';
+      }
+    }
+  } catch(err) {
+    console.error('Failed dynamically injecting PDF engines:', err);
+  }
+  return !!(window.PDFLib && window.fontkit);
+}
+
 // IN-BROWSER VECTOR PDF GENERATION (Runs completely client-side via PDF-Lib & local fonts!)
 async function buildCertificatePdfBytes(studentName) {
+  await ensurePdfEnginesReady();
+
   const templateBytes = await fetch('./assets/Certificate_template.pdf').then(r => r.arrayBuffer());
   const fontBytes = await fetch('./assets/GoogleSans-Bold.ttf').then(r => r.arrayBuffer());
   const sigBytes = await fetch('./assets/signature_cropped.png').then(r => r.arrayBuffer());
@@ -439,7 +475,7 @@ async function buildCertificatePdfBytes(studentName) {
   const fontkitModule = window.fontkit || (typeof fontkit !== 'undefined' ? fontkit : null);
 
   if (!PDFLibModule) {
-    throw new Error('PDF-Lib engine not ready');
+    throw new Error('PDF-Lib engine not ready. Please refresh the page and try again.');
   }
 
   const { PDFDocument, rgb } = PDFLibModule;
@@ -610,5 +646,6 @@ window.state = state;
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Google Student Ambassador Certificate Portal initialized.');
+  ensurePdfEnginesReady();
   refreshStats();
 });
