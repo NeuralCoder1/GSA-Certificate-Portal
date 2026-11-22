@@ -164,97 +164,66 @@
           </div>
           <div>
             <h2 class="section-header-title">Step 1 — Pre-Survey Form</h2>
-            <p class="section-header-desc">Product Trial Pre-Survey Form (November)</p>
+            <p class="section-header-desc">Complete the official form below. Step 2 unlocks automatically upon submission.</p>
           </div>
         </div>
         <span class="badge-status badge-active" id="badgeStep1">● In Progress</span>
       </div>
 
       <div class="section-body">
-        <!-- Direct Link Action Card -->
-        <div style="background: linear-gradient(135deg, #f8fafd, #ffffff); border: 1.5px solid var(--google-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
-          <div style="max-width: 580px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+        <!-- Direct Link Action Header -->
+        <div style="background: linear-gradient(135deg, #f8fafd, #ffffff); border: 1.5px solid var(--google-border); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
               <span style="background: #e8f0fe; color: var(--google-blue); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;">OFFICIAL FORM</span>
               <span style="color: var(--google-text-tertiary); font-size: 0.8rem;">producttrialsurvey.geministudentambassador.com</span>
             </div>
-            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 4px;">PRODUCT TRIAL | PRE SURVEY | NOVEMBER</h3>
-            <p style="font-size: 0.88rem; color: var(--google-text-secondary);">
-              Open the official Pre-Survey form to log your details. Once submitted, confirm below to unlock Step 2.
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--google-text-primary);">PRODUCT TRIAL | PRE SURVEY | NOVEMBER</h3>
+            <p style="font-size: 0.85rem; color: var(--google-text-secondary);">
+              Fill out the form below directly or open in a full tab. <strong>Step 2 will unlock automatically only when you hit Submit on the form!</strong>
             </p>
           </div>
           <div>
-            <a href="https://producttrialsurvey.geministudentambassador.com/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="text-decoration: none; font-size: 0.92rem; padding: 0.8rem 1.6rem;">
-              <span>Open Pre-Survey Form</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <a href="https://tally.so/r/YjRjGJ" target="_blank" rel="noopener noreferrer" class="btn-primary" style="text-decoration: none; font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+              <span>Open in New Tab</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
               </svg>
             </a>
           </div>
         </div>
 
-        <!-- Verification Gate to Unlock Step 2 -->
-        <div style="background: #fafafb; border: 1.5px dashed #bdc1c6; border-radius: 16px; padding: 1.75rem 2rem;">
-          <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
-            <span>🔐 Confirm Submission & Unlock Step 2</span>
-          </h4>
-          <p style="font-size: 0.88rem; color: var(--google-text-secondary); margin-bottom: 1.25rem;">
-            Enter the details you submitted in the Pre-Survey form so we can verify your entry.
+        <!-- Embedded Interactive Tally Form -->
+        <div style="width: 100%; height: 750px; border: 1.5px solid var(--google-border); border-radius: 16px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;">
+          <iframe 
+            id="tallyFrameStep1"
+            src="https://tally.so/r/YjRjGJ?transparentBackground=1" 
+            title="Step 1 Pre-Survey Form"
+            style="width: 100%; height: 100%; border: none;"
+            loading="lazy">
+          </iframe>
+        </div>
+
+        <!-- Automated Listener Status Banner -->
+        <div id="step1PendingNotice" style="background: #fafafb; border: 1.5px dashed #bdc1c6; border-radius: 12px; padding: 1.25rem 1.5rem; text-align: center;">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--google-text-secondary); font-size: 0.92rem; font-weight: 600;">
+            <span class="wave-dot" style="background: var(--google-blue);"></span>
+            <span>Waiting for your official form submission... Fill the form above and click <strong>Submit</strong>.</span>
+          </div>
+          <p style="font-size: 0.8rem; color: var(--google-text-tertiary); margin-top: 6px;">
+            (Anti-Bypass Protection active: Section 2 cannot be unlocked by typing random text or ticking boxes.)
           </p>
+        </div>
 
-          <form id="formStep1" onsubmit="handleStep1Submit(event)">
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="s1FullName">
-                  Full Name <span class="req-star">*</span>
-                </label>
-                <input type="text" id="s1FullName" class="form-control" placeholder="e.g. Akshat Jain" required>
-                <p class="form-hint">Enter your full name as you want it on your certificate.</p>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="s1Email">
-                  Your Gmail ID <span class="req-star">*</span>
-                </label>
-                <input type="email" id="s1Email" class="form-control" placeholder="e.g. akshat23@gmail.com" required>
-                <p class="form-hint">Must be the same registered @gmail.com used for both forms.</p>
-              </div>
+        <!-- Submission Confirmed Banner (Shows automatically upon Tally submission) -->
+        <div id="step1SuccessBanner" style="display: none; background: #e6f4ea; border: 1.5px solid #34a853; border-radius: 12px; padding: 1.25rem 1.5rem;">
+          <div style="display: flex; align-items: center; gap: 12px; color: #137333;">
+            <span style="font-size: 1.5rem;">✓</span>
+            <div>
+              <div style="font-weight: 800; font-size: 1.05rem;">Official Pre-Survey Submitted & Verified!</div>
+              <div style="font-size: 0.88rem;">Count updated in cloud database. Step 2 (Participant Feedback) is now unlocked below!</div>
             </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="s1AmbassadorGid">
-                  Ambassador's GID <span class="req-star">*</span>
-                </label>
-                <input type="text" id="s1AmbassadorGid" class="form-control" value="13052" required>
-                <p class="form-hint">Verified Ambassador GID: 13052</p>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="s1AmbassadorEmail">
-                  Ambassador's Email ID <span class="req-star">*</span>
-                </label>
-                <input type="email" id="s1AmbassadorEmail" class="form-control" value="dasloknath2005@gmail.com" required>
-                <p class="form-hint">Verified Host Email: dasloknath2005@gmail.com</p>
-              </div>
-            </div>
-
-            <div style="margin-top: 1rem; display: flex; align-items: center; gap: 10px;">
-              <input type="checkbox" id="checkSurveySubmitted" class="custom-radio" style="width: 18px; height: 18px; cursor: pointer;" required>
-              <label for="checkSurveySubmitted" style="font-size: 0.9rem; font-weight: 600; color: var(--google-text-primary); cursor: pointer;">
-                I have opened and submitted the official Pre-Survey form at producttrialsurvey.geministudentambassador.com
-              </label>
-            </div>
-
-            <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
-              <button type="button" class="btn-primary" id="btnSubmitStep1" onclick="handleStep1Submit(event)">
-                <span>Verify & Unlock Step 2</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/>
-                </svg>
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </section>
@@ -270,7 +239,7 @@
           </div>
           <div>
             <h2 class="section-header-title">Step 2 — Participant Feedback</h2>
-            <p class="section-header-desc">Official Product Trial Participant Feedback (November)</p>
+            <p class="section-header-desc">Complete the official feedback form. Step 3 unlocks automatically upon submission.</p>
           </div>
         </div>
         <span class="badge-status badge-locked" id="badgeStep2">🔒 Locked</span>
@@ -282,86 +251,62 @@
           <div class="lock-icon-circle">🔒</div>
           <div class="lock-title">Step 2 Locked</div>
           <p class="lock-desc">
-            Complete and successfully submit <strong>Step 1 (Pre-Survey Form)</strong> with valid details to unlock this stage.
+            Complete and successfully submit <strong>Step 1 (Pre-Survey Form)</strong> above to unlock this stage.
           </p>
         </div>
 
         <!-- Unlocked Section 2 -->
         <div id="formStep2" style="display: none;">
-          <!-- Top Notice -->
-          <div style="background: #fef7e0; border: 1px solid #f9ab00; border-radius: 12px; padding: 1.15rem 1.4rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 12px;">
-            <span style="font-size: 1.4rem; line-height: 1;">⚠️</span>
-            <div style="font-size: 0.88rem; color: #7c4a00; line-height: 1.45;">
-              <strong>Important Requirement:</strong> Please use the same registered email ID for all submissions. If the email ID does not match, participation points will not be validated.
-            </div>
-          </div>
-
           <!-- Direct Form Action Card -->
-          <div style="background: linear-gradient(135deg, #f8fafd, #ffffff); border: 1.5px solid var(--google-border); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
-            <div style="max-width: 580px;">
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+          <div style="background: linear-gradient(135deg, #f8fafd, #ffffff); border: 1.5px solid var(--google-border); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
                 <span style="background: #e8f0fe; color: var(--google-blue); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 50px;">OFFICIAL FORM</span>
                 <span style="color: var(--google-text-tertiary); font-size: 0.8rem;">producttrialfeedback.geministudentambassador.com</span>
               </div>
-              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 4px;">PRODUCT TRIAL: PARTICIPANT FEEDBACK! (NOVEMBER)</h3>
-              <p style="font-size: 0.88rem; color: var(--google-text-secondary);">
-                Open the official Participant Feedback form below to share your experience with Gemini and Nano Banana. Once submitted, confirm below to unlock Step 3.
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--google-text-primary);">PRODUCT TRIAL: PARTICIPANT FEEDBACK! (NOVEMBER)</h3>
+              <p style="font-size: 0.85rem; color: var(--google-text-secondary);">
+                Submit your project build and Gemini experience. <strong>Step 3 unlocks automatically when you hit Submit!</strong>
               </p>
             </div>
             <div>
-              <a href="https://producttrialfeedback.geministudentambassador.com/" target="_blank" rel="noopener noreferrer" class="btn-primary" style="text-decoration: none; font-size: 0.92rem; padding: 0.8rem 1.6rem;">
-                <span>Open Feedback Form</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <a href="https://tally.so/r/rDDQrM" target="_blank" rel="noopener noreferrer" class="btn-primary" style="text-decoration: none; font-size: 0.9rem; padding: 0.75rem 1.5rem;">
+                <span>Open in New Tab</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
                 </svg>
               </a>
             </div>
           </div>
 
-          <!-- Verification Gate to Unlock Step 3 -->
-          <div style="background: #fafafb; border: 1.5px dashed #bdc1c6; border-radius: 16px; padding: 1.75rem 2rem;">
-            <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--google-text-primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
-              <span>🔐 Confirm & Unlock Step 3</span>
-            </h4>
-            <p style="font-size: 0.88rem; color: var(--google-text-secondary); margin-bottom: 1.25rem;">
-              Once you have submitted the feedback form above, verify your details below to proceed to Step 3.
-            </p>
+          <!-- Embedded Interactive Feedback Tally Form -->
+          <div style="width: 100%; height: 750px; border: 1.5px solid var(--google-border); border-radius: 16px; overflow: hidden; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1.5rem;">
+            <iframe 
+              id="tallyFrameStep2"
+              src="https://tally.so/r/rDDQrM?transparentBackground=1" 
+              title="Step 2 Participant Feedback Form"
+              style="width: 100%; height: 100%; border: none;"
+              loading="lazy">
+            </iframe>
+          </div>
 
-            <form id="formConfirmStep2" onsubmit="handleStep2Submit(event)">
-              <div class="form-row">
-                <div class="form-group" style="margin-bottom: 1rem;">
-                  <label class="form-label" for="s2RegisteredEmail">
-                    Registered Gmail ID <span class="req-star">*</span>
-                  </label>
-                  <input type="email" id="s2RegisteredEmail" class="form-control" placeholder="same registered gmail id" required>
-                  <p class="form-hint">Must match the registered email used in Step 1.</p>
-                </div>
+          <!-- Automated Listener Status Banner -->
+          <div id="step2PendingNotice" style="background: #fafafb; border: 1.5px dashed #bdc1c6; border-radius: 12px; padding: 1.25rem 1.5rem; text-align: center;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--google-text-secondary); font-size: 0.92rem; font-weight: 600;">
+              <span class="wave-dot" style="background: var(--google-red);"></span>
+              <span>Waiting for your feedback submission... Fill the form above and click <strong>Submit</strong>.</span>
+            </div>
+          </div>
 
-                <div class="form-group" style="margin-bottom: 1rem;">
-                  <label class="form-label" for="s2AmbassadorGid">
-                    Ambassador's GID <span class="req-star">*</span>
-                  </label>
-                  <input type="text" id="s2AmbassadorGid" class="form-control" value="13052" required>
-                  <p class="form-hint">Verified Ambassador GID: 13052</p>
-                </div>
+          <!-- Submission Confirmed Banner -->
+          <div id="step2SuccessBanner" style="display: none; background: #e6f4ea; border: 1.5px solid #34a853; border-radius: 12px; padding: 1.25rem 1.5rem;">
+            <div style="display: flex; align-items: center; gap: 12px; color: #137333;">
+              <span style="font-size: 1.5rem;">✓</span>
+              <div>
+                <div style="font-weight: 800; font-size: 1.05rem;">Official Participant Feedback Submitted & Verified!</div>
+                <div style="font-size: 0.88rem;">Count updated in cloud database. Step 3 (Google Play Arena status) is now unlocked below!</div>
               </div>
-
-              <div style="margin-top: 1rem; display: flex; align-items: center; gap: 10px;">
-                <input type="checkbox" id="checkSubmitted" class="custom-radio" style="width: 18px; height: 18px; cursor: pointer;" required>
-                <label for="checkSubmitted" style="font-size: 0.9rem; font-weight: 600; color: var(--google-text-primary); cursor: pointer;">
-                  I have completed and submitted the official feedback form at producttrialfeedback.geministudentambassador.com
-                </label>
-              </div>
-
-              <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
-                <button type="button" class="btn-primary" id="btnSubmitStep2" onclick="handleStep2Submit(event)">
-                  <span>Verify Submission & Unlock Step 3</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/>
-                  </svg>
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -832,82 +777,108 @@ function jumpToSection(stepNum) {
   }
 }
 
-// STEP 1: Pre-Survey Submission
-async function handleStep1Submit(e) {
-  if (e && e.preventDefault) e.preventDefault();
+// ==========================================================================
+// Tally Official Form Submission Event Listener (100% Anti-Bypass)
+// ==========================================================================
+window.addEventListener('message', function(event) {
+  if (typeof event.data === 'string') {
+    try {
+      const data = JSON.parse(event.data);
+      if (data && data.event === 'Tally.FormSubmitted') {
+        const formId = data.payload ? data.payload.formId : '';
+        console.log('Official Tally Form Submitted Event Captured:', formId, data.payload);
+        handleOfficialTallySubmit(formId, data.payload);
+      }
+    } catch(e) {}
+  } else if (typeof event.data === 'object' && event.data !== null) {
+    if (event.data.event === 'Tally.FormSubmitted') {
+      const formId = event.data.payload ? event.data.payload.formId : '';
+      console.log('Official Tally Form Submitted Event Captured (obj):', formId);
+      handleOfficialTallySubmit(formId, event.data.payload);
+    }
+  }
+});
 
-  const fullName = document.getElementById('s1FullName').value.trim();
-  const email = document.getElementById('s1Email').value.trim().toLowerCase();
-  const ambassadorGid = document.getElementById('s1AmbassadorGid').value.trim();
-  const ambassadorEmail = document.getElementById('s1AmbassadorEmail').value.trim().toLowerCase();
-  const checkSurveySubmitted = document.getElementById('checkSurveySubmitted').checked;
-
-  if (!checkSurveySubmitted) {
-    showToast('Please check the box confirming you submitted the Pre-Survey form.', 'error');
-    return;
+function handleOfficialTallySubmit(formId, payload) {
+  // Extract student details if provided in form submission payload
+  let submittedName = '';
+  let submittedEmail = '';
+  if (payload && payload.fields) {
+    for (const f of payload.fields) {
+      if (f.type === 'INPUT_TEXT' && !submittedName) submittedName = f.value;
+      if (f.type === 'INPUT_EMAIL' && !submittedEmail) submittedEmail = f.value;
+    }
   }
 
-  if (fullName.length < 3) {
-    showToast('Please enter your valid Full Name.', 'error');
-    return;
-  }
+  // Pre-Survey Form ID is 'YjRjGJ'
+  if (formId === 'YjRjGJ' || !state.step1Completed) {
+    const tracker = getLocalTracker();
+    state.step1Completed = true;
+    if (submittedName) state.studentName = submittedName;
+    if (submittedEmail) state.studentEmail = submittedEmail;
 
-  const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
-  if (!gmailRegex.test(email)) {
-    showToast('Please enter a valid Gmail address (@gmail.com).', 'error');
-    return;
-  }
-
-  if (ambassadorGid !== '13052') {
-    showToast('Invalid Ambassador GID. Please enter the verified Ambassador GID (13052).', 'error');
-    return;
-  }
-
-  if (ambassadorEmail !== 'dasloknath2005@gmail.com') {
-    showToast('Invalid Ambassador Email. Please enter the verified Ambassador email (dasloknath2005@gmail.com).', 'error');
-    return;
-  }
-
-  // Anti-cheat check: check if this device already claimed a certificate under a different email
-  const tracker = getLocalTracker();
-  if (tracker.certificateClaimed && tracker.studentEmail && tracker.studentEmail !== email) {
-    showToast('Anti-Cheat Protection: A certificate has already been issued for You To prevent duplicate claims, only one certificate is allowed per participant.', 'error');
-    return;
-  }
-
-  // Record milestone
-  state.step1Completed = true;
-  state.studentName = fullName;
-  state.studentEmail = email;
-
-  tracker.studentName = fullName;
-  tracker.studentEmail = email;
-  tracker.step1Completed = true;
-  saveLocalTracker(tracker);
-
-  // Sync with cloud global counter (Only once per participant!)
-  if (!tracker.preSurveyCounted) {
-    tracker.preSurveyCounted = true;
+    tracker.step1Completed = true;
+    if (submittedName) tracker.studentName = submittedName;
+    if (submittedEmail) tracker.studentEmail = submittedEmail;
     saveLocalTracker(tracker);
-    incrementCloudStat('preSurveys');
+
+    // Update Step 1 UI
+    document.getElementById('badgeStep1').className = 'badge-status badge-done';
+    document.getElementById('badgeStep1').innerHTML = '✓ Submitted & Verified';
+    document.getElementById('stepNode1').className = 'step-node completed';
+    document.getElementById('line1').className = 'step-line completed';
+    
+    if (document.getElementById('step1PendingNotice')) document.getElementById('step1PendingNotice').style.display = 'none';
+    if (document.getElementById('step1SuccessBanner')) document.getElementById('step1SuccessBanner').style.display = 'block';
+
+    // Increment global cloud counter
+    if (!tracker.preSurveyCounted) {
+      tracker.preSurveyCounted = true;
+      saveLocalTracker(tracker);
+      incrementCloudStat('preSurveys');
+    }
+
+    // Unlock Step 2
+    unlockStep2();
+    showToast('Official Pre-Survey submission confirmed! Step 2 is now unlocked.', 'success');
+
+    setTimeout(() => {
+      jumpToSection(2);
+    }, 400);
+    return;
   }
 
-  // Update UI
-  document.getElementById('badgeStep1').className = 'badge-status badge-done';
-  document.getElementById('badgeStep1').innerHTML = '✓ Completed & Verified';
-  document.getElementById('stepNode1').className = 'step-node completed';
-  document.getElementById('line1').className = 'step-line completed';
-  const btn = document.getElementById('btnSubmitStep1');
-  btn.innerHTML = '<span>✓ Pre-Survey Verified</span>';
-  btn.className = 'btn-primary btn-success';
+  // Participant Feedback Form ID is 'rDDQrM'
+  if (formId === 'rDDQrM' || (state.step1Completed && !state.step2Completed)) {
+    const tracker = getLocalTracker();
+    state.step2Completed = true;
+    tracker.step2Completed = true;
+    saveLocalTracker(tracker);
 
-  refreshStats();
-  unlockStep2();
-  showToast('Pre-Survey verified! Step 2 (Feedback) is now unlocked.', 'success');
+    // Update Step 2 UI
+    document.getElementById('badgeStep2').className = 'badge-status badge-done';
+    document.getElementById('badgeStep2').innerHTML = '✓ Submitted & Verified';
+    document.getElementById('stepNode2').className = 'step-node completed';
+    document.getElementById('line2').className = 'step-line completed';
 
-  setTimeout(() => {
-    jumpToSection(2);
-  }, 400);
+    if (document.getElementById('step2PendingNotice')) document.getElementById('step2PendingNotice').style.display = 'none';
+    if (document.getElementById('step2SuccessBanner')) document.getElementById('step2SuccessBanner').style.display = 'block';
+
+    // Increment global cloud counter
+    if (!tracker.feedbackCounted) {
+      tracker.feedbackCounted = true;
+      saveLocalTracker(tracker);
+      incrementCloudStat('feedbacks');
+    }
+
+    // Unlock Step 3 (Google Play Arena status)
+    unlockStepGpa();
+    showToast('Official Feedback submission confirmed! Step 3 (Google Play Arena) is now unlocked.', 'success');
+
+    setTimeout(() => {
+      jumpToSection('Gpa');
+    }, 400);
+  }
 }
 
 function unlockStep2() {
@@ -916,62 +887,6 @@ function unlockStep2() {
   document.getElementById('badgeStep2').innerHTML = '● In Progress';
   document.getElementById('lockedState2').style.display = 'none';
   document.getElementById('formStep2').style.display = 'block';
-
-  if (document.getElementById('s2RegisteredEmail')) {
-    document.getElementById('s2RegisteredEmail').value = state.studentEmail;
-  }
-}
-
-// STEP 2: Participant Feedback Submission
-async function handleStep2Submit(e) {
-  if (e && e.preventDefault) e.preventDefault();
-
-  const registeredEmail = document.getElementById('s2RegisteredEmail').value.trim().toLowerCase();
-  const ambassadorGid = document.getElementById('s2AmbassadorGid').value.trim();
-  const checkSubmitted = document.getElementById('checkSubmitted').checked;
-
-  if (!checkSubmitted) {
-    showToast('Please check the confirmation box verifying you submitted the official feedback form.', 'error');
-    return;
-  }
-
-  if (state.studentEmail && registeredEmail !== state.studentEmail) {
-    showToast('The email entered does not match your registered email from Step 1 (' + state.studentEmail + ').', 'error');
-    return;
-  }
-
-  if (ambassadorGid !== '13052') {
-    showToast('Invalid Ambassador GID. Please enter 13052.', 'error');
-    return;
-  }
-
-  state.step2Completed = true;
-  const tracker = getLocalTracker();
-  tracker.step2Completed = true;
-  saveLocalTracker(tracker);
-
-  // Sync with cloud global counter (Only once per participant!)
-  if (!tracker.feedbackCounted) {
-    tracker.feedbackCounted = true;
-    saveLocalTracker(tracker);
-    incrementCloudStat('feedbacks');
-  }
-
-  document.getElementById('badgeStep2').className = 'badge-status badge-done';
-  document.getElementById('badgeStep2').innerHTML = '✓ Submitted & Verified';
-  document.getElementById('stepNode2').className = 'step-node completed';
-  document.getElementById('line2').className = 'step-line completed';
-  const btn = document.getElementById('btnSubmitStep2');
-  btn.innerHTML = '<span>✓ Feedback Submission Verified</span>';
-  btn.className = 'btn-primary btn-success';
-
-  refreshStats();
-  unlockStepGpa();
-  showToast('Feedback verified! Step 3 (Google Play Arena option) is now unlocked.', 'success');
-
-  setTimeout(() => {
-    jumpToSection('Gpa');
-  }, 400);
 }
 
 function unlockStepGpa() {
@@ -1279,6 +1194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
 
 
 
