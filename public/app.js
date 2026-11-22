@@ -211,122 +211,152 @@ function jumpToSection(stepNum) {
   }
 }
 
-// ==========================================================================
-// Tally Official Form Submission Event Listener (100% Anti-Bypass)
-// ==========================================================================
-window.addEventListener('message', function(event) {
-  if (typeof event.data === 'string') {
-    try {
-      const data = JSON.parse(event.data);
-      if (data && data.event === 'Tally.FormSubmitted') {
-        const formId = data.payload ? data.payload.formId : '';
-        console.log('Official Tally Form Submitted Event Captured:', formId, data.payload);
-        handleOfficialTallySubmit(formId, data.payload);
-      }
-    } catch(e) {}
-  } else if (typeof event.data === 'object' && event.data !== null) {
-    if (event.data.event === 'Tally.FormSubmitted') {
-      const formId = event.data.payload ? event.data.payload.formId : '';
-      console.log('Official Tally Form Submitted Event Captured (obj):', formId);
-      handleOfficialTallySubmit(formId, event.data.payload);
-    }
-  }
-});
+// STEP 1: Pre-Survey Submission
+async function handleStep1Submit(e) {
+  if (e && e.preventDefault) e.preventDefault();
 
-function handleOfficialTallySubmit(formId, payload) {
-  // Extract student details if provided in form submission payload
-  let submittedName = '';
-  let submittedEmail = '';
-  if (payload && payload.fields) {
-    for (const f of payload.fields) {
-      if (f.type === 'INPUT_TEXT' && !submittedName) submittedName = f.value;
-      if (f.type === 'INPUT_EMAIL' && !submittedEmail) submittedEmail = f.value;
-    }
-  }
+  const fullName = document.getElementById('s1FullName').value.trim();
+  const email = document.getElementById('s1Email').value.trim().toLowerCase();
+  const ambassadorGid = document.getElementById('s1AmbassadorGid').value.trim();
+  const ambassadorEmail = document.getElementById('s1AmbassadorEmail').value.trim().toLowerCase();
+  const checkSurveySubmitted = document.getElementById('checkSurveySubmitted').checked;
 
-  // Pre-Survey Form ID is 'YjRjGJ'
-  if (formId === 'YjRjGJ' || !state.step1Completed) {
-    const tracker = getLocalTracker();
-    state.step1Completed = true;
-    if (submittedName) state.studentName = submittedName;
-    if (submittedEmail) state.studentEmail = submittedEmail;
-
-    tracker.step1Completed = true;
-    if (submittedName) tracker.studentName = submittedName;
-    if (submittedEmail) tracker.studentEmail = submittedEmail;
-    saveLocalTracker(tracker);
-
-    // Update Step 1 UI
-    document.getElementById('badgeStep1').className = 'badge-status badge-done';
-    document.getElementById('badgeStep1').innerHTML = '‚úì Submitted & Verified';
-    document.getElementById('stepNode1').className = 'step-node completed';
-    document.getElementById('line1').className = 'step-line completed';
-    
-    if (document.getElementById('step1PendingNotice')) document.getElementById('step1PendingNotice').style.display = 'none';
-    if (document.getElementById('step1SuccessBanner')) document.getElementById('step1SuccessBanner').style.display = 'block';
-
-    // Increment global cloud counter
-    if (!tracker.preSurveyCounted) {
-      tracker.preSurveyCounted = true;
-      saveLocalTracker(tracker);
-      incrementCloudStat('preSurveys');
-    }
-
-    // Unlock Step 2
-    unlockStep2();
-    showToast('Official Pre-Survey submission confirmed! Step 2 is now unlocked.', 'success');
-
-    setTimeout(() => {
-      jumpToSection(2);
-    }, 400);
+  if (!checkSurveySubmitted) {
+    showToast('Please check the box confirming you submitted the Pre-Survey form.', 'error');
     return;
   }
 
-  // Participant Feedback Form ID is 'rDDQrM'
-  if (formId === 'rDDQrM' || (state.step1Completed && !state.step2Completed)) {
-    const tracker = getLocalTracker();
-    state.step2Completed = true;
-    tracker.step2Completed = true;
-    saveLocalTracker(tracker);
-
-    // Update Step 2 UI
-    document.getElementById('badgeStep2').className = 'badge-status badge-done';
-    document.getElementById('badgeStep2').innerHTML = '‚úì Submitted & Verified';
-    document.getElementById('stepNode2').className = 'step-node completed';
-    document.getElementById('line2').className = 'step-line completed';
-
-    if (document.getElementById('step2PendingNotice')) document.getElementById('step2PendingNotice').style.display = 'none';
-    if (document.getElementById('step2SuccessBanner')) document.getElementById('step2SuccessBanner').style.display = 'block';
-
-    // Increment global cloud counter
-    if (!tracker.feedbackCounted) {
-      tracker.feedbackCounted = true;
-      saveLocalTracker(tracker);
-      incrementCloudStat('feedbacks');
-    }
-
-    // Unlock Step 3 (Google Play Arena status)
-    unlockStepGpa();
-    showToast('Official Feedback submission confirmed! Step 3 (Google Play Arena) is now unlocked.', 'success');
-
-    setTimeout(() => {
-      jumpToSection('Gpa');
-    }, 400);
+  if (fullName.length < 3) {
+    showToast('Please enter your valid Full Name.', 'error');
+    return;
   }
+
+  const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
+  if (!gmailRegex.test(email)) {
+    showToast('Please enter a valid Gmail address (@gmail.com).', 'error');
+    return;
+  }
+
+  if (ambassadorGid !== '13052') {
+    showToast('Invalid Ambassador GID. Please enter the verified Ambassador GID (13052).', 'error');
+    return;
+  }
+
+  if (ambassadorEmail !== 'dasloknath2005@gmail.com') {
+    showToast('Invalid Ambassador Email. Please enter the verified Ambassador email (dasloknath2005@gmail.com).', 'error');
+    return;
+  }
+
+  // Anti-cheat check: check if this device already claimed a certificate under a different email
+  const tracker = getLocalTracker();
+  if (tracker.certificateClaimed && tracker.studentEmail && tracker.studentEmail !== email) {
+    showToast('Anti-Cheat Protection: A certificate has already been issued for You To prevent duplicate claims, only one certificate is allowed per participant.', 'error');
+    return;
+  }
+
+  // Record milestone
+  state.step1Completed = true;
+  state.studentName = fullName;
+  state.studentEmail = email;
+
+  tracker.studentName = fullName;
+  tracker.studentEmail = email;
+  tracker.step1Completed = true;
+  saveLocalTracker(tracker);
+
+  // Sync with cloud global counter (Only once per participant!)
+  if (!tracker.preSurveyCounted) {
+    tracker.preSurveyCounted = true;
+    saveLocalTracker(tracker);
+    incrementCloudStat('preSurveys');
+  }
+
+  // Update UI
+  document.getElementById('badgeStep1').className = 'badge-status badge-done';
+  document.getElementById('badgeStep1').innerHTML = 'G£Ù Completed & Verified';
+  document.getElementById('stepNode1').className = 'step-node completed';
+  document.getElementById('line1').className = 'step-line completed';
+  const btn = document.getElementById('btnSubmitStep1');
+  btn.innerHTML = '<span>G£Ù Pre-Survey Verified</span>';
+  btn.className = 'btn-primary btn-success';
+
+  refreshStats();
+  unlockStep2();
+  showToast('Pre-Survey verified! Step 2 (Feedback) is now unlocked.', 'success');
+
+  setTimeout(() => {
+    jumpToSection(2);
+  }, 400);
 }
 
 function unlockStep2() {
   document.getElementById('stepNode2').className = 'step-node active';
   document.getElementById('badgeStep2').className = 'badge-status badge-active';
-  document.getElementById('badgeStep2').innerHTML = '‚óè In Progress';
+  document.getElementById('badgeStep2').innerHTML = 'G˘≈ In Progress';
   document.getElementById('lockedState2').style.display = 'none';
   document.getElementById('formStep2').style.display = 'block';
+
+  if (document.getElementById('s2RegisteredEmail')) {
+    document.getElementById('s2RegisteredEmail').value = state.studentEmail;
+  }
+}
+
+// STEP 2: Participant Feedback Submission
+async function handleStep2Submit(e) {
+  if (e && e.preventDefault) e.preventDefault();
+
+  const registeredEmail = document.getElementById('s2RegisteredEmail').value.trim().toLowerCase();
+  const ambassadorGid = document.getElementById('s2AmbassadorGid').value.trim();
+  const checkSubmitted = document.getElementById('checkSubmitted').checked;
+
+  if (!checkSubmitted) {
+    showToast('Please check the confirmation box verifying you submitted the official feedback form.', 'error');
+    return;
+  }
+
+  if (state.studentEmail && registeredEmail !== state.studentEmail) {
+    showToast('The email entered does not match your registered email from Step 1 (' + state.studentEmail + ').', 'error');
+    return;
+  }
+
+  if (ambassadorGid !== '13052') {
+    showToast('Invalid Ambassador GID. Please enter 13052.', 'error');
+    return;
+  }
+
+  state.step2Completed = true;
+  const tracker = getLocalTracker();
+  tracker.step2Completed = true;
+  saveLocalTracker(tracker);
+
+  // Sync with cloud global counter (Only once per participant!)
+  if (!tracker.feedbackCounted) {
+    tracker.feedbackCounted = true;
+    saveLocalTracker(tracker);
+    incrementCloudStat('feedbacks');
+  }
+
+  document.getElementById('badgeStep2').className = 'badge-status badge-done';
+  document.getElementById('badgeStep2').innerHTML = 'G£Ù Submitted & Verified';
+  document.getElementById('stepNode2').className = 'step-node completed';
+  document.getElementById('line2').className = 'step-line completed';
+  const btn = document.getElementById('btnSubmitStep2');
+  btn.innerHTML = '<span>G£Ù Feedback Submission Verified</span>';
+  btn.className = 'btn-primary btn-success';
+
+  refreshStats();
+  unlockStepGpa();
+  showToast('Feedback verified! Step 3 (Google Play Arena option) is now unlocked.', 'success');
+
+  setTimeout(() => {
+    jumpToSection('Gpa');
+  }, 400);
 }
 
 function unlockStepGpa() {
   document.getElementById('stepNodeGpa').className = 'step-node active';
   document.getElementById('badgeStepGpa').className = 'badge-status badge-active';
-  document.getElementById('badgeStepGpa').innerHTML = '‚óè In Progress';
+  document.getElementById('badgeStepGpa').innerHTML = 'G˘≈ In Progress';
   document.getElementById('lockedStateGpa').style.display = 'none';
   document.getElementById('unlockedStepGpa').style.display = 'block';
 }
@@ -370,11 +400,11 @@ async function handleGpaSubmit(e) {
   }
 
   document.getElementById('badgeStepGpa').className = 'badge-status badge-done';
-  document.getElementById('badgeStepGpa').innerHTML = '‚úì Choice Saved';
+  document.getElementById('badgeStepGpa').innerHTML = 'G£Ù Choice Saved';
   document.getElementById('stepNodeGpa').className = 'step-node completed';
   document.getElementById('lineGpa').className = 'step-line completed';
   const btn = document.getElementById('btnSubmitGpa');
-  btn.innerHTML = '<span>‚úì Status Recorded</span>';
+  btn.innerHTML = '<span>G£Ù Status Recorded</span>';
   btn.className = 'btn-primary btn-success';
 
   refreshStats();
@@ -389,7 +419,7 @@ async function handleGpaSubmit(e) {
 function unlockStep3() {
   document.getElementById('stepNode3').className = 'step-node active';
   document.getElementById('badgeStep3').className = 'badge-status badge-active';
-  document.getElementById('badgeStep3').innerHTML = '‚óè Ready to Download';
+  document.getElementById('badgeStep3').innerHTML = 'G˘≈ Ready to Download';
   document.getElementById('lockedState3').style.display = 'none';
   document.getElementById('unlockedState3').style.display = 'block';
 
