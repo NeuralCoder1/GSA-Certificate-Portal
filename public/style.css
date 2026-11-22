@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: 'Google Sans';
-  src: url('/assets/GoogleSans-Bold.ttf') format('truetype');
+  src: url('./assets/GoogleSans-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }

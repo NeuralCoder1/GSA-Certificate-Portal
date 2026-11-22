@@ -624,4 +624,3 @@ document.addEventListener('DOMContentLoaded', () => {
   ensurePdfEnginesReady();
   refreshStats();
 });
-
